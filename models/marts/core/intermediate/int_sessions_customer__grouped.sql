@@ -81,10 +81,10 @@ final as (
     from (
         select
             customer_id,
-            min(datetime(user_first_touch_at)) as user_first_touch_at,
-            min(datetime(session_start_at)) as first_session_at,
-            max(datetime(session_start_at)) as last_session_at,
-            max(datetime(if(transactions > 0, session_start_at, null))) as last_transaction_at,
+            min(timestamp(user_first_touch_at)) as user_first_touch_at,
+            min(timestamp(session_start_at)) as first_session_at,
+            max(timestamp(session_start_at)) as last_session_at,
+            max(timestamp(if(transactions > 0, session_start_at, null))) as last_transaction_at,
             count(session_id) as sessions,
             countif(date_diff(current_date, datetime(session_start_at), day) between 0 and 7) as sessions_1d_7d,
             countif(date_diff(current_date, datetime(session_start_at), day) between 8 and 30) as sessions_7d_30d,
