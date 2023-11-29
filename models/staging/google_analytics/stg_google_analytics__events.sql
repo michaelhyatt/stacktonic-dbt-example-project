@@ -20,7 +20,7 @@ with source as (
 renamed as (
     
     select
-      user_id as fpc_id,
+      user_pseudo_id as user_id,
       user_pseudo_id as fpc_id, -- first-party cookie-id
       concat(user_pseudo_id, '.', (select cast(value.int_value as string) from unnest(event_params) where key = 'ga_session_id')) as session_id,
       ifnull((select value.string_value from unnest(event_params) where key = 'traffic_type'), 'production') as traffic_type,
